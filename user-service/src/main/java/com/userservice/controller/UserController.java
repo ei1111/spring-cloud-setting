@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/user-service")
+@RequestMapping
 public class UserController {
     private final Environment env;
     private final Greeting greeting;
