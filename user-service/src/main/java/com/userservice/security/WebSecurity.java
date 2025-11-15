@@ -26,7 +26,7 @@ public class WebSecurity {
     protected SecurityFilterChain configure(HttpSecurity http) throws Exception {
         http.csrf( (csrf) -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/h2-console/**", "/swagger-ui/**").permitAll()  // 특정 경로 허용
+                        .requestMatchers("/h2-console/**", "/swagger-ui/**", "/catalog-service/**").permitAll()  // 특정 경로 허용
                         .anyRequest().authenticated()              // 그 외는 인증 필요
                 )
                 .httpBasic(Customizer.withDefaults())  // ← Basic 인증 추가

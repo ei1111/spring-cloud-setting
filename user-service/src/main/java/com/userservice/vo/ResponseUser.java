@@ -1,6 +1,8 @@
 package com.userservice.vo;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.userservice.jpa.UserEntity;
+import java.util.List;
 import lombok.Builder;
 import lombok.Data;
 
@@ -14,4 +16,15 @@ public class ResponseUser {
     private String name;
 
     private String userId;
+
+    private List<ResponseOrder> orders;
+
+    public static ResponseUser from(UserEntity userEntity) {
+        return ResponseUser.builder()
+                .email(userEntity.getEmail())
+                .name(userEntity.getName())
+                .userId(userEntity.getUserId())
+                .orders(userEntity.toUserDto().getOrders())
+                .build();
+    }
 }

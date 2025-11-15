@@ -4,7 +4,7 @@ server:
 eureka:
   client:
     register-with-eureka: true
-    fetch-registry: true #-> 주기적으로 eureka한테 정보 가져옴
+    fetch-registry: true
     service-url:
       defaultZone: http://localhost:8761/eureka
 
@@ -25,20 +25,31 @@ spring:
             - id: user-service
               uri: lb://USER-SERVICE
               predicates:
-                - Path=/user-service/** # 클라이언트가 user-service 요청시에 lb://USER-SERVICE 이쪽으로 넘겨주겠다
+                - Path=/user-service/**
+            - id: catalog-service
+              uri: lb://CATALOG-SERVICE
+              predicates:
+                - Path=/catalog-service/**
+            - id: order-service
+              uri: lb://ORDER-SERVICE
+              #uri: http://localhost:60002
+              predicates:
+                - Path=/order-service/**
             - id: first-service
-              #uri: http://localhost:8081 -> eureka 안 사용할경우
-              uri: lb://MY-FIRST-SERVICE # -> eureka로 먼저 감,eureka에 등록된 경우
+              uri: lb://MY-FIRST-SERVICE
               predicates:
                 - Path=/first-service/**
               filters:
+                #                - AddRequestHeader=f-request, 1st-request-header-by-yaml
+                #                - AddResponseHeader=f-response, 1st-response-header-from-yaml
                 - CustomFilter
             - id: second-service
-              #uri: http://localhost:8082 -> eureka 안 사용할경우
               uri: lb://MY-SECOND-SERVICE
               predicates:
                 - Path=/second-service/**
               filters:
+                #                - AddRequestHeader=s-request, 2nd-request-header-by-yaml
+                #                - AddResponseHeader=s-response, 2nd-response-header-from-yaml
                 - name: CustomFilter
                 - name: LoggingFilter
                   args:

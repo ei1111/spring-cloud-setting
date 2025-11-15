@@ -1,14 +1,18 @@
 package com.userservice.dto;
 
 import com.userservice.jpa.UserEntity;
+import com.userservice.vo.ResponseOrder;
 import com.userservice.vo.ResponseUser;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
+import lombok.Setter;
 
 
-@Getter
+@Data
 @Builder
 public class UserDto {
 
@@ -19,6 +23,8 @@ public class UserDto {
     private Date createdAt;
 
     private String encryptedPwd;
+
+    private List<ResponseOrder> orders;
 
     public UserEntity toEntity(final String encodePw) {
         return UserEntity.builder()
