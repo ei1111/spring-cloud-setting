@@ -37,6 +37,12 @@ dependencies {
     /*actuator*/
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
 
+    /*amqp*/
+    implementation 'org.springframework.boot:spring-boot-starter-amqp'
+
+    /*cloud-bus-amqp - ⭐ 이것 추가!*/
+    implementation 'org.springframework.cloud:spring-cloud-starter-bus-amqp'
+
     /*eureka-client*/
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
 }

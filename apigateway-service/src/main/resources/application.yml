@@ -11,6 +11,11 @@ eureka:
 spring:
   application:
     name: apigateway-service
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
   config:
     import: "optional:configserver:http://127.0.0.1:8888"
   cloud:
@@ -27,6 +32,14 @@ spring:
                 preLogger: true
                 postLogger: true
           routes:
+            - id: user-service-actuator
+              uri: lb://USER-SERVICE
+              predicates:
+                - Path=/user-service/actuator/**
+                - Method=GET,POST
+              filters:
+                - RemoveRequestHeader=Cookie
+                - RewritePath=/user-service/(?<segment>.*), /$\{segment}
             - id: user-service-register
               uri: lb://USER-SERVICE
               predicates:
@@ -84,9 +97,4 @@ management:
   endpoints:
     web:
       exposure:
-        include:
-          - refresh
-          - health
-          - beans # 스프링 컨텍스트에 등록된 빈
-          - info # 서비스가 가지고 있는 정보
-          - httpexchanges #누가 요청했고 어떤 값을 요청했는지 볼수 있는 엔드포인트
+        include: refresh,health,beans,info,httpexchanges,busrefresh
