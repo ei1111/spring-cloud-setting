@@ -28,7 +28,7 @@ public class WebSecurity {
     public static final String ALLOWED_IP_ADDRESS = "127.0.0.1";
     public static final String SUBNET = "/32";
     public static final IpAddressMatcher ALLOWED_IP_ADDRESS_MATCHER = new IpAddressMatcher(ALLOWED_IP_ADDRESS + SUBNET);
-
+    public static final String[] WHITE_LIST = {"/h2-console/**", "/swagger-ui/**", "/catalog-service/**", "/actuator/**","/health-check/**" };
 
     @Bean
     protected SecurityFilterChain configure(HttpSecurity http) throws Exception {
@@ -42,7 +42,7 @@ public class WebSecurity {
 
         http.csrf( (csrf) -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/h2-console/**", "/swagger-ui/**", "/catalog-service/**").permitAll()  // 특정 경로 허용
+                        .requestMatchers(WHITE_LIST).permitAll()  // 특정 경로 허용
                         .requestMatchers("/**").access(
                                 new WebExpressionAuthorizationManager(
                                         " hasIpAddress('127.0.0.1') or hasIpAddress('::1') or " +
