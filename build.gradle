@@ -35,16 +35,18 @@ subprojects {
         mavenCentral()
     }
 
-    dependencies {
-        /*lombok*/
-        compileOnly 'org.projectlombok:lombok'
-        annotationProcessor 'org.projectlombok:lombok'
+    if (project.name != "config-service") {
+        dependencies {
+            /*lombok*/
+            compileOnly 'org.projectlombok:lombok'
+            annotationProcessor 'org.projectlombok:lombok'
 
-        /*devtools*/
-        developmentOnly 'org.springframework.boot:spring-boot-devtools'
+            /*devtools*/
+            developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
-        testImplementation 'org.springframework.boot:spring-boot-starter-test'
-        testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+            testImplementation 'org.springframework.boot:spring-boot-starter-test'
+            testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+        }
     }
 
     tasks.named('test') {
