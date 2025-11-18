@@ -21,6 +21,7 @@ public class ResponseOrder {
     public static ResponseOrder from(OrderEntity orderEntity) {
         return ResponseOrder.builder()
                 .orderId(orderEntity.getOrderId())
+                .productId(orderEntity.getProductId())
                 .qty(orderEntity.getQty())
                 .unitPrice(orderEntity.getUnitPrice())
                 .totalPrice(orderEntity.getTotalPrice())

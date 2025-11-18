@@ -2,7 +2,7 @@ server:
   port: 60002
 spring:
   application:
-    name: catalog-service
+    name: order-service
   h2:
     console:
       enabled: true
@@ -18,10 +18,14 @@ spring:
     hibernate:
       ddl-auto: update
 eureka:
+  instance:
+    instance-id: 127.0.0.1:${spring.application.name}:${server.port}  # ??!
+    prefer-ip-address: true
+    ip-address: 127.0.0.1  # ??!
+    non-secure-port: 60002
+    hostname: 127.0.0.1
   client:
     register-with-eureka: true
     fetch-registry: true
     service-url:
       defaultZone: http://localhost:8761/eureka
-  instance:
-    instance-id: ${spring.application.name}:${server.port}

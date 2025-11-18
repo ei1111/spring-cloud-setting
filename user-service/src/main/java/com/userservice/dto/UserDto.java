@@ -3,6 +3,7 @@ package com.userservice.dto;
 import com.userservice.jpa.UserEntity;
 import com.userservice.vo.ResponseOrder;
 import com.userservice.vo.ResponseUser;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -24,7 +25,7 @@ public class UserDto {
 
     private String encryptedPwd;
 
-    private List<ResponseOrder> orders;
+    private List<ResponseOrder> orders = new ArrayList<>();
 
     public UserEntity toEntity(final String encodePw) {
         return UserEntity.builder()
@@ -40,6 +41,7 @@ public class UserDto {
                 .email(this.email)
                 .name(this.name)
                 .userId(this.userId)
+                .orders(this.orders)
                 .build();
     }
 }
